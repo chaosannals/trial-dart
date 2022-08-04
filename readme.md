@@ -13,4 +13,7 @@ dart create <projectname>
 
 # 添加库
 dart pub add <packname>
+
+# 拉库
+dart pub get
 ```
