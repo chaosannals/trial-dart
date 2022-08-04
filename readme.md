@@ -10,4 +10,7 @@ dart help
 
 # 创建项目
 dart create <projectname>
+
+# 添加库
+dart pub add <packname>
 ```
