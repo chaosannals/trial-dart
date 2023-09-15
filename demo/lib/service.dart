@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_static/shelf_static.dart';
+import 'package:shelf_web_socket/shelf_web_socket.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class Service {
   Handler get handler {
@@ -25,6 +27,15 @@ class Service {
       );
     });
 
+    // websocket
+    var socket = webSocketHandler((webSocket) {
+      webSocket.stream.listen((message) {
+        webSocket.sink.add("echo $message");
+      });
+    });
+    router.all('/ws', socket);
+
+    // 静态文件
     router.all(
         '/<ignored|.*>',
         createStaticHandler(
