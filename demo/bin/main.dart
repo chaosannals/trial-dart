@@ -8,10 +8,11 @@ void main() async {
   var address = '0.0.0.0';
 
   var service = Service();
-  var server = const shelf.Pipeline()
+  var pipeline = const shelf.Pipeline()
     .addMiddleware(shelf.logRequests())
     .addHandler(service.handler);
-  await shelf_io.serve(server, address, port);
+  var server = await shelf_io.serve(pipeline, address, port);
+  server.autoCompress = true;
 
   print("listen $port");
 }
